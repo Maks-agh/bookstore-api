@@ -1,0 +1,19 @@
+spring:
+  flyway:
+    enabled: true
+  datasource:
+    url: ${DATABASE_CONNECTION_STRING:jdbc:postgresql://localhost:5432/bookstore}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+      use-new-id-generator-mappings: false
+    show-sql: false
+    open-in-view: false
+server:
+  port: 8080
+  error:
+    include-message: always
