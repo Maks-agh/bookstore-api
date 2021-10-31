@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "92081047-96fe-458a-a4df-7cd23f4fffbe",
+		"name": "Bookstore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Dżan Kowalski\",\n    \"email\": \"dzan@example.com\",\n    \"phone\": \"123456789\",\n    \"password\": \"test123\",\n    \"repeatPassword\": \"test123\",\n    \"address\": {\n        \"firstLine\": \"ul. Rybacka 1\",\n        \"secondLine\": \"66\",\n        \"city\": \"Dżanów Podlaski\",\n        \"postalCode\": \"00-000\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/customers/registration",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"dzan@example.com\",\n    \"password\": \"test123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/customers/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update data",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcklkIjoiZjc0OTA5YTUtYzU1Ni00ZWFkLWI1NDgtZDZiM2QyMDNiNWJiIiwiZXhwIjoxNjM1NzY1MDQ3fQ.ACC1rC4GFdnGVbBKd0Wm-kTZwINSA0cW2eGtquoqmcE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Dżan Kowalski\",\n    \"email\": \"dzan@example.com\",\n    \"phone\": \"123456789\",\n    \"password\": \"test123\",\n    \"repeatPassword\": \"test123\",\n    \"address\": {\n        \"firstLine\": \"ul. Rybacka 1\",\n        \"secondLine\": \"66\",\n        \"city\": \"Dżanów Podlaski\",\n        \"postalCode\": \"00-000\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
