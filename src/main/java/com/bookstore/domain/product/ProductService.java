@@ -1,0 +1,55 @@
+package com.bookstore.domain.product;
+
+import com.bookstore.domain.exception.NotFoundException;
+import com.bookstore.domain.product.dto.CreateProductDto;
+import com.bookstore.domain.product.dto.UpdateProductDto;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+@AllArgsConstructor
+public class ProductService {
+
+    private final ProductRepository productRepository;
+
+    public void createProduct(CreateProductDto productDto) {
+        log.info("Creating product {} started", productDto);
+        ProductEntity productEntity = new ProductEntity(productDto.getName(),
+                productDto.getDescription(),
+                productDto.getInStock(),
+                productDto.getPrice());
+        productRepository.save(productEntity);
+        log.info("Creating product {} finished", productEntity);
+    }
+
+    public void deleteProduct(UUID productId) {
+        log.info("Deleting product {} started", productId);
+        if (findOptionalProductById(productId).isPresent()) {
+            productRepository.deleteById(productId);
+        }
+        log.info("Deleting product {} finished", productId);
+    }
+
+    public void updateProduct(UpdateProductDto productDto) {
+        log.info("Update'ing product {} started", productDto);
+        ProductEntity productEntity = findProductById(productDto.getProductId());
+        productEntity.updateEntity(productDto);
+        productRepository.save(productEntity);
+        log.info("Update'ing product {} finished", productDto.getProductId());
+    }
+
+    private ProductEntity findProductById(UUID productId) {
+        return findOptionalProductById(productId).orElseThrow(() -> new NotFoundException("Product doesn't exist"));
+    }
+
+    private Optional<ProductEntity> findOptionalProductById(UUID productId) {
+        return productRepository.findById(productId);
+    }
+
+}

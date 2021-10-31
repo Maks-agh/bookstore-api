@@ -10,6 +10,9 @@ This application uses PostgreSQL as database with default datasource provided. I
 ## Documentation
 Documentation is available under `{host}/swagger-ui.html`, e.g. `http://localhost:8080/swagger-ui.html`.
 
+## Postman collection
+This repo contains Postman collection in file: `Bookstore.postman_collection.json`, you can import it to use requests
+
 ## Running application
 You can use application for example by running provided docker-compose or by setting up PostgresSQL and using IDE. 
 

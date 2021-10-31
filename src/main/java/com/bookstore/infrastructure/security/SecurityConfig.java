@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     private static final String[] GUEST_URLS = {
+            "/products/**"
     };
 
     private static final String USER_REGISTRATION_URL = "/customers/registration";
@@ -64,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**/*").permitAll()
                 .antMatchers(USER_REGISTRATION_URL).permitAll()
                 .antMatchers(USER_LOGIN_URL).permitAll()
-                .antMatchers(HttpMethod.GET, GUEST_URLS).permitAll()
+                .antMatchers(GUEST_URLS).permitAll()
                 .antMatchers("/**/*").authenticated()
                 .and().csrf().disable();
     }
