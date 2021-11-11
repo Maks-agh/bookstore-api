@@ -24,7 +24,7 @@ public class CreateProductDocument {
     @NotNull
     @PositiveOrZero
     @JsonProperty("inStock")
-    private final Double inStock;
+    private final Integer inStock;
 
     @NotNull
     @Positive

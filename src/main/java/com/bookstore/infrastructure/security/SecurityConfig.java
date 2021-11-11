@@ -37,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String USER_LOGIN_URL = "/customers/login";
 
+    private static final String CREATE_ORDER_URL = "/orders";
+
     @Autowired
     private ApiHttpSecurityConfigurer apiHttpSecurityConfigurer;
 
@@ -65,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**/*").permitAll()
                 .antMatchers(USER_REGISTRATION_URL).permitAll()
                 .antMatchers(USER_LOGIN_URL).permitAll()
+                .antMatchers(CREATE_ORDER_URL).permitAll()
                 .antMatchers(GUEST_URLS).permitAll()
                 .antMatchers("/**/*").authenticated()
                 .and().csrf().disable();

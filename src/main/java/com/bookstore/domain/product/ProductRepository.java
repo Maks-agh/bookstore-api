@@ -11,4 +11,6 @@ public interface ProductRepository {
 
     Optional<ProductEntity> findById(UUID productId);
 
+    Optional<ProductEntity> findByIdAndInStockGreaterThanEqual(UUID productId, Integer inStock);
+
 }

@@ -17,7 +17,7 @@ public class UpdateProductDto {
 
     private final String description;
 
-    private final Double inStock;
+    private final Integer inStock;
 
     private final Double price;
 

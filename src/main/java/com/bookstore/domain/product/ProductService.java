@@ -44,6 +44,11 @@ public class ProductService {
         log.info("Update'ing product {} finished", productDto.getProductId());
     }
 
+    public ProductEntity findByIdAndInStockGreaterThanEqual(UUID productId, Integer inStock) {
+        return productRepository.findByIdAndInStockGreaterThanEqual(productId, inStock).orElseThrow(
+                () -> new NotFoundException("Product doesn't exist in such quantity"));
+    }
+
     private ProductEntity findProductById(UUID productId) {
         return findOptionalProductById(productId).orElseThrow(() -> new NotFoundException("Product doesn't exist"));
     }

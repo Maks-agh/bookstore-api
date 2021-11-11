@@ -16,4 +16,6 @@ public interface ProductPostgresRepository extends ProductRepository, JpaReposit
     void deleteById(UUID productId);
 
     Optional<ProductEntity> findById(UUID productId);
+
+    Optional<ProductEntity> findByIdAndInStockGreaterThanEqual(UUID productId, Integer inStock);
 }
