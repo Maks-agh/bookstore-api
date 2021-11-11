@@ -3,6 +3,8 @@ package com.bookstore.domain.order;
 import com.bookstore.boundary.controller.order.OrderRepository;
 import com.bookstore.domain.exception.NotFoundException;
 import com.bookstore.domain.order.dto.CreateOrderDto;
+import com.bookstore.domain.order.dto.OrderDetailDto;
+import com.bookstore.domain.order.dto.OrderDto;
 import com.bookstore.domain.order.dto.UpdateOrderStatusDto;
 import com.bookstore.domain.product.ProductEntity;
 import com.bookstore.domain.product.ProductService;
@@ -47,6 +49,13 @@ public class OrderService {
         log.info("Updating order status {} finished", orderEntity.getId());
     }
 
+    public List<OrderDto> getOrdersList(UUID customerId) {
+        log.info("Fetching orders list for customer {} started", customerId);
+        List<OrderEntity> orders = orderRepository.findByCreatedBy(customerId);
+        log.info("Fetching orders list for customer {} finished", customerId);
+        return mapToList(orders, this::buildOrderDto);
+    }
+
     private List<OrderDetailsEntity> createOrderDetails(CreateOrderDto orderDto, OrderEntity orderEntity) {
         return mapToList(orderDto.getProducts(), product -> {
             ProductEntity productEntity = productService.findByIdAndInStockGreaterThanEqual(product.getProductId(),
@@ -63,6 +72,17 @@ public class OrderService {
 
     private Optional<OrderEntity> findOptionalOrderById(UUID orderId) {
         return orderRepository.findById(orderId);
+    }
+
+    private OrderDto buildOrderDto(OrderEntity orderEntity) {
+        return new OrderDto(orderEntity.getId(), mapToList(orderEntity.getOrderDetails(), this::buildOrderDetailDto), orderEntity.getReceivedAt(),
+                orderEntity.getPackedAt(),
+                orderEntity.getSentAt(), orderEntity.getStatus());
+    }
+
+    private OrderDetailDto buildOrderDetailDto(OrderDetailsEntity orderDetail) {
+        return new OrderDetailDto(orderDetail.getProduct().getId(), orderDetail.getProduct().getName(), orderDetail.getQuantity(),
+                orderDetail.getPrice());
     }
 
 }

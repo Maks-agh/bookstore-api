@@ -61,6 +61,103 @@
 			"response": []
 		},
 		{
+			"name": "Create order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcklkIjoiMTlkYTNmYTgtOTAyMC00ODdmLTlmOGItZDM0ZTFhNDMzZGUxIiwiZXhwIjoxNjM2NzI5NzgwfQ.QfQfs5_1KIRYuitKsKR2BlRT425KK4cmu4g7ZlI4iLc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"products\": [\n        {\n            \"productId\": \"5f5d5c0f-030d-422a-a4cd-377106c6bce6\",\n            \"quantity\": 20\n        }\n    ],\n    \"customerId\": \"48bdebe8-9ff5-4f48-bb2c-7b45829c037f\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update order status",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"PACKED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/orders/2f698ffe-6115-48ae-873f-43bd5e93e6ad",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"2f698ffe-6115-48ae-873f-43bd5e93e6ad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List my orders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcklkIjoiNGRkOGJhODMtZjczZi00ZmM3LWJmNTgtYzJkNmRlODZiMzBjIiwiZXhwIjoxNjM2NzM3MjIyfQ.oHlRfK-g1kGfm5LRMSKle6lTiHmUr4AsmOL1JA2Pkuw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update product",
 			"request": {
 				"method": "PATCH",

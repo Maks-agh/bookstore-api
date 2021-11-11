@@ -30,7 +30,7 @@ public class OrderEntity {
     private UUID id;
 
     @Setter
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<OrderDetailsEntity> orderDetails;
 
     @Column(name = "created_by")

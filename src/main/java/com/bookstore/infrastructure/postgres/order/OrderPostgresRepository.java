@@ -2,6 +2,7 @@ package com.bookstore.infrastructure.postgres.order;
 
 import com.bookstore.boundary.controller.order.OrderRepository;
 import com.bookstore.domain.order.OrderEntity;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,4 +15,6 @@ public interface OrderPostgresRepository extends OrderRepository, JpaRepository<
     OrderEntity save(OrderEntity orderEntity);
 
     Optional<OrderEntity> findById(UUID id);
+
+    List<OrderEntity> findByCreatedBy(UUID customerId);
 }
