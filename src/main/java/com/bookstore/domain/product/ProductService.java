@@ -3,6 +3,8 @@ package com.bookstore.domain.product;
 import com.bookstore.domain.exception.NotFoundException;
 import com.bookstore.domain.product.dto.CreateProductDto;
 import com.bookstore.domain.product.dto.UpdateProductDto;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,6 +20,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final MeterRegistry meterRegistry;
+
     public void createProduct(CreateProductDto productDto) {
         log.info("Creating product {} started", productDto);
         ProductEntity productEntity = new ProductEntity(productDto.getName(),
@@ -25,6 +29,7 @@ public class ProductService {
                 productDto.getInStock(),
                 productDto.getPrice());
         productRepository.save(productEntity);
+        recordProductCreation();
         log.info("Creating product {} finished", productEntity);
     }
 
@@ -57,4 +62,11 @@ public class ProductService {
         return productRepository.findById(productId);
     }
 
+    private void recordProductCreation() {
+        Counter counter = Counter
+                .builder("product_create")
+                .description("indicates number of products created")
+                .register(meterRegistry);
+        counter.increment();
+    }
 }

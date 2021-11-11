@@ -13,6 +13,8 @@ import com.bookstore.domain.exception.AuthorizationException;
 import com.bookstore.domain.exception.NotFoundException;
 import com.bookstore.domain.exception.ValidationException;
 import com.bookstore.domain.password.PasswordService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
@@ -36,12 +38,15 @@ public class CustomerService {
 
     private final PasswordService passwordService;
 
+    private final MeterRegistry meterRegistry;
+
     public AuthorizationDto register(CustomerRegistrationDto registrationDto) {
         log.info("Registering customer {} started", registrationDto);
         validateRegistration(registrationDto);
         CustomerEntity customer = saveCustomer(registrationDto);
         String token = generateJwt(customer);
         log.info("Registering customer {} finished", customer.getId());
+        recordRegistration();
         return new AuthorizationDto(token);
     }
 
@@ -112,5 +117,13 @@ public class CustomerService {
                 .withClaim(CUSTOMER_ID, customerEntity.getId().toString())
                 .withExpiresAt(Date.from(Instant.now().plus(24, HOURS)))
                 .sign(Algorithm.HMAC256(JWT_SECRET));
+    }
+
+    private void recordRegistration() {
+        Counter counter = Counter
+                .builder("customer_registration")
+                .description("indicates number of customers registrations")
+                .register(meterRegistry);
+        counter.increment();
     }
 }

@@ -8,6 +8,8 @@ import com.bookstore.domain.order.dto.OrderDto;
 import com.bookstore.domain.order.dto.UpdateOrderStatusDto;
 import com.bookstore.domain.product.ProductEntity;
 import com.bookstore.domain.product.ProductService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,6 +33,8 @@ public class OrderService {
 
     private final ProductService productService;
 
+    private final MeterRegistry meterRegistry;
+
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void createOrder(CreateOrderDto orderDto) {
         log.info("Creating order {} started", orderDto);
@@ -38,6 +42,7 @@ public class OrderService {
         List<OrderDetailsEntity> orderDetails = createOrderDetails(orderDto, orderEntity);
         orderEntity.setOrderDetails(orderDetails);
         orderRepository.save(orderEntity);
+        recordOrderCreation(orderDetails.stream().mapToDouble(OrderDetailsEntity::getPrice).sum());
         log.info("Creating order {} finished", orderEntity.getId());
     }
 
@@ -85,4 +90,16 @@ public class OrderService {
                 orderDetail.getPrice());
     }
 
+    private void recordOrderCreation(Double price) {
+        Counter orderCounter = Counter
+                .builder("order_create")
+                .description("indicates number of orders created")
+                .register(meterRegistry);
+        Counter priceCounter = Counter
+                .builder("order_price")
+                .description("indicates total price of created orders")
+                .register(meterRegistry);
+        orderCounter.increment();
+        priceCounter.increment(price);
+    }
 }
