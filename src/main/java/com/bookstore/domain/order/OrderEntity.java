@@ -58,4 +58,14 @@ public class OrderEntity {
         this.status = OrderStatus.RECEIVED;
     }
 
+    void updateStatus(OrderStatus status) {
+        if (status == OrderStatus.PACKED) {
+            this.packedAt = Instant.now();
+        }
+        if (status == OrderStatus.SENT) {
+            this.sentAt = Instant.now();
+        }
+        this.status = status;
+    }
+
 }

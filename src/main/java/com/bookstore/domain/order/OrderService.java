@@ -1,10 +1,14 @@
 package com.bookstore.domain.order;
 
 import com.bookstore.boundary.controller.order.OrderRepository;
+import com.bookstore.domain.exception.NotFoundException;
 import com.bookstore.domain.order.dto.CreateOrderDto;
+import com.bookstore.domain.order.dto.UpdateOrderStatusDto;
 import com.bookstore.domain.product.ProductEntity;
 import com.bookstore.domain.product.ProductService;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -32,7 +36,15 @@ public class OrderService {
         List<OrderDetailsEntity> orderDetails = createOrderDetails(orderDto, orderEntity);
         orderEntity.setOrderDetails(orderDetails);
         orderRepository.save(orderEntity);
-        log.info("Creating order {} finished", orderEntity);
+        log.info("Creating order {} finished", orderEntity.getId());
+    }
+
+    public void updateOrderStatus(UpdateOrderStatusDto orderStatusDto) {
+        log.info("Updating order status {} started", orderStatusDto);
+        OrderEntity orderEntity = findOrderById(orderStatusDto.getOrderId());
+        orderEntity.updateStatus(orderStatusDto.getStatus());
+        orderRepository.save(orderEntity);
+        log.info("Updating order status {} finished", orderEntity.getId());
     }
 
     private List<OrderDetailsEntity> createOrderDetails(CreateOrderDto orderDto, OrderEntity orderEntity) {
@@ -43,6 +55,14 @@ public class OrderService {
             Double price = product.getQuantity() * productEntity.getPrice();
             return new OrderDetailsEntity(orderEntity, productEntity, product.getQuantity(), price);
         });
+    }
+
+    private OrderEntity findOrderById(UUID orderId) {
+        return findOptionalOrderById(orderId).orElseThrow(() -> new NotFoundException("Order doesn't exist"));
+    }
+
+    private Optional<OrderEntity> findOptionalOrderById(UUID orderId) {
+        return orderRepository.findById(orderId);
     }
 
 }
