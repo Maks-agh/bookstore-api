@@ -6,12 +6,18 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
+import java.util.UUID;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
 public class CreateProductDocument {
+
+    @NotNull
+    @JsonProperty("id")
+    private final UUID id;
 
     @NotBlank
     @JsonProperty("name")

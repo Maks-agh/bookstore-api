@@ -26,7 +26,7 @@ class OrderServiceSpec extends Specification {
         when:
             orderService.createOrder(createOrderDto)
         then:
-            1 * productService.findByIdAndInStockGreaterThanEqual(_, _) >> new ProductEntity("name", "description", 1, 1.0)
+            1 * productService.findByIdAndInStockGreaterThanEqual(_, _) >> new ProductEntity(productId, "name", "description", 1, 1.0)
             1 * orderRepository.save(_) >> { OrderEntity orderEntity ->
                 orderEntity.createdBy == customerId
                 orderEntity.orderDetails.size() == 1

@@ -40,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Produkt\",\n    \"description\": \"Opis\",\n    \"inStock\": 40,\n    \"price\": 5.0\n}",
+					"raw": "{\n    \"id\": \"b62b7349-3d6f-4186-ad0c-e9cf6af68da5\",\n    \"name\": \"Produkt\",\n    \"description\": \"Opis\",\n    \"inStock\": 40,\n    \"price\": 5.0\n}",
 					"options": {
 						"raw": {
 							"language": "json"

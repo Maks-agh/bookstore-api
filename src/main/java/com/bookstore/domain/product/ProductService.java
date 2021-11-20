@@ -24,7 +24,7 @@ public class ProductService {
 
     public void createProduct(CreateProductDto productDto) {
         log.info("Creating product {} started", productDto);
-        ProductEntity productEntity = new ProductEntity(productDto.getName(),
+        ProductEntity productEntity = new ProductEntity(productDto.getId(), productDto.getName(),
                 productDto.getDescription(),
                 productDto.getInStock(),
                 productDto.getPrice());

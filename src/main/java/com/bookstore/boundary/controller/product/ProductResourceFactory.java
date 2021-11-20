@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class ProductResourceFactory {
 
     static CreateProductDto toProductDto(CreateProductDocument productDocument) {
-        return new CreateProductDto(productDocument.getName(),
+        return new CreateProductDto(productDocument.getId(), productDocument.getName(),
                 productDocument.getDescription(),
                 productDocument.getInStock(),
                 productDocument.getPrice());

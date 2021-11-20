@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,7 +23,6 @@ import lombok.NoArgsConstructor;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue
     @Column(name = "id")
     private UUID id;
 
@@ -43,8 +41,8 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderDetailsEntity> orderDetail;
 
-    public ProductEntity(String name, String description, Integer inStock, Double price) {
-        this.id = UUID.randomUUID();
+    public ProductEntity(UUID id, String name, String description, Integer inStock, Double price) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.inStock = inStock;
