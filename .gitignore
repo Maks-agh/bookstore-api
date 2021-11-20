@@ -1,6 +1,5 @@
 .idea
 *.iml
-target
 postgres-bookstore-api
 
 # Mac OS files
