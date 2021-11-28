@@ -16,11 +16,13 @@ class ProductServiceSpec extends Specification {
 
     def "should create product"() {
         given:
-            def createProductDto = new CreateProductDto("name", "description", 1, 1.0)
+            def productId = UUID.randomUUID()
+            def createProductDto = new CreateProductDto(productId, "name", "description", 1, 1.0)
         when:
             productService.createProduct(createProductDto)
         then:
             1 * productRepository.save(_) >> { ProductEntity productEntity ->
+                productEntity.id == productId
                 productEntity.name == "name"
                 productEntity.description == "description"
                 productEntity.inStock == 1
@@ -36,7 +38,7 @@ class ProductServiceSpec extends Specification {
             productService.deleteProduct(productId)
         then:
             1 * productRepository.deleteById(productId)
-            1 * productRepository.findById(productId) >> Optional.of(new ProductEntity("name", "email", 1, 1.0))
+            1 * productRepository.findById(productId) >> Optional.of(new ProductEntity(productId, "name", "email", 1, 1.0))
     }
 
     def "should update product"() {
@@ -46,8 +48,9 @@ class ProductServiceSpec extends Specification {
         when:
             productService.updateProduct(updateProductDto)
         then:
-            1 * productRepository.findById(productId) >> Optional.of(new ProductEntity("name", "email", 1, 1.0))
+            1 * productRepository.findById(productId) >> Optional.of(new ProductEntity(productId, "name", "email", 1, 1.0))
             1 * productRepository.save(_) >> { ProductEntity productEntity ->
+                productEntity.id == productId
                 productEntity.name == "name2"
                 productEntity.description == "description2"
                 productEntity.inStock == 2

@@ -67,13 +67,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcklkIjoiMTlkYTNmYTgtOTAyMC00ODdmLTlmOGItZDM0ZTFhNDMzZGUxIiwiZXhwIjoxNjM2NzI5NzgwfQ.QfQfs5_1KIRYuitKsKR2BlRT425KK4cmu4g7ZlI4iLc",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXN0b21lcklkIjoiNGRkOGJhODMtZjczZi00ZmM3LWJmNTgtYzJkNmRlODZiMzBjIiwiZXhwIjoxNjM4MTg5MTQzfQ.lTi2ZMEV06otgUn1PMtILlvXp4ZUP0hOV2r0NARDdLY",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"products\": [\n        {\n            \"productId\": \"5f5d5c0f-030d-422a-a4cd-377106c6bce6\",\n            \"quantity\": 20\n        }\n    ],\n    \"customerId\": \"48bdebe8-9ff5-4f48-bb2c-7b45829c037f\"\n}",
+					"raw": "{\n    \"products\": [\n        {\n            \"productId\": \"5f5d5c0f-030d-422a-a4cd-377106c6bce6\",\n            \"quantity\": 1\n        }\n    ],\n    \"customer\": {\n        \"id\": \"a5fa14c1-2582-47db-af95-4b29c828209a\",\n        \"name\": \"unregistered\",\n        \"email\": \"email@example.com\",\n        \"phone\": \"321654987\",\n        \"address\": {\n            \"firstLine\": \"ul. Rybacka 1\",\n            \"secondLine\": \"66\",\n            \"city\": \"Dżanów Podlaski\",\n            \"postalCode\": \"00-000\"\n    }\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -152,6 +152,43 @@
 					"port": "8080",
 					"path": [
 						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List unregistered orders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/orders/unregistered?customerId=a5fa14c1-2582-47db-af95-4b29c828209a",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"unregistered"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "a5fa14c1-2582-47db-af95-4b29c828209a"
+						}
 					]
 				}
 			},

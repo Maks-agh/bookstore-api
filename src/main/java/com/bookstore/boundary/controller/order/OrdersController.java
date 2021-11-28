@@ -1,5 +1,6 @@
 package com.bookstore.boundary.controller.order;
 
+import com.bookstore.boundary.controller.order.CreateOrderDocument.CustomerDocument;
 import com.bookstore.domain.exception.ValidationException;
 import com.bookstore.domain.order.OrderService;
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ import lombok.RequiredArgsConstructor;
 import static com.bookstore.boundary.controller.order.OrderResourceFactory.toCreateOrderDto;
 import static com.bookstore.boundary.controller.order.OrderResourceFactory.toOrdersListDocument;
 import static com.bookstore.boundary.controller.order.OrderResourceFactory.toUpdateOrderStatusDto;
+import static java.util.Objects.isNull;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,8 +36,9 @@ class OrdersController {
     @PostMapping
     void createOrder(UsernamePasswordAuthenticationToken principal,
                      @RequestBody @Valid CreateOrderDocument createOrderDocument) {
+        validate(principal, createOrderDocument);
         UUID customerId = extractCustomerId(principal, createOrderDocument);
-        orderService.createOrder(toCreateOrderDto(createOrderDocument, customerId));
+        orderService.createOrder(toCreateOrderDto(createOrderDocument, createOrderDocument.getCustomer(), customerId, isAuthenticatedCustomer(principal)));
     }
 
     @PatchMapping("/{order-id}")
@@ -49,15 +54,35 @@ class OrdersController {
         return toOrdersListDocument(orderService.getOrdersList(customerId));
     }
 
+    @GetMapping("unregistered")
+    OrdersListDocument getUnregistredOrdersList(@RequestParam UUID customerId) {
+        return toOrdersListDocument(orderService.getUnregisteredOrdersList(customerId));
+    }
+
+    private void validate(UsernamePasswordAuthenticationToken principal,
+                          CreateOrderDocument order) {
+        if (isAuthenticatedCustomer(principal)) {
+            return;
+        }
+        if (isNull(order.getCustomer())) {
+            throw new ValidationException("Incorrect order data");
+        }
+    }
+
     private UUID extractCustomerId(UsernamePasswordAuthenticationToken principal,
                                    CreateOrderDocument createOrderDocument) {
-        if (principal != null && principal.getName() != null && !principal.getName().isEmpty()) {
+        if (isAuthenticatedCustomer(principal)) {
             return UUID.fromString(principal.getName());
         }
-        if (createOrderDocument.getCustomerId() != null) {
-            return createOrderDocument.getCustomerId();
+        CustomerDocument customer = createOrderDocument.getCustomer();
+        if (customer.getId() != null) {
+            return customer.getId();
         }
         throw new ValidationException("Customer id must be provided");
+    }
+
+    private boolean isAuthenticatedCustomer(UsernamePasswordAuthenticationToken principal) {
+        return !isNull(principal) && isNotBlank(principal.getName());
     }
 
 }

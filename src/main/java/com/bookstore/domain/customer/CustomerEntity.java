@@ -51,6 +51,18 @@ public class CustomerEntity {
         this.address = address;
     }
 
+    private CustomerEntity(String name, String email, String phone, AddressEntity address) {
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    static CustomerEntity createUnregistered(String name, String email, String phone, AddressEntity address) {
+        return new CustomerEntity(name, email, phone, address);
+    }
+
     void updateCustomer(UpdateCustomerDetailsDto updateDto) {
         this.name = updateDto.getName() != null ? updateDto.getName() : this.name;
         this.email = updateDto.getEmail() != null ? updateDto.getEmail() : this.email;

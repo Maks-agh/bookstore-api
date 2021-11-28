@@ -12,11 +12,13 @@ import com.bookstore.domain.customer.dto.UpdateCustomerDetailsDto;
 import com.bookstore.domain.exception.AuthorizationException;
 import com.bookstore.domain.exception.NotFoundException;
 import com.bookstore.domain.exception.ValidationException;
+import com.bookstore.domain.order.dto.CreateOrderDto;
 import com.bookstore.domain.password.PasswordService;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -66,6 +68,10 @@ public class CustomerService {
                 getAddress(customer.getAddress()));
     }
 
+    public boolean unregisteredCustomerExists(UUID customerId) {
+        return findUnregisteredCustomerById(customerId).isPresent();
+    }
+
     public void updateDetails(UpdateCustomerDetailsDto updateDto) {
         log.info("Update'ing customer details {} started", updateDto);
         CustomerEntity customer = findCustomerById(updateDto.getCustomerId());
@@ -73,6 +79,16 @@ public class CustomerService {
 
         customerRepository.save(customer);
         log.info("Update'ing customer details {} finished", customer.getId());
+    }
+
+    public void createUnregisteredForOrder(CreateOrderDto.CustomerDto customerDto) {
+        log.info("Creating unregistered customer {} for order started", customerDto.getId());
+        CustomerEntity customer = CustomerEntity.createUnregistered(customerDto.getName(),
+                customerDto.getEmail(),
+                customerDto.getPhone(),
+                AddressEntity.of(customerDto.getAddress()));
+        customerRepository.save(customer);
+        log.info("Creating unregistered customer {} for order finished", customer.getId());
     }
 
     private AddressDto getAddress(AddressEntity addressEntity) {
@@ -100,6 +116,10 @@ public class CustomerService {
 
     private CustomerEntity findCustomerById(UUID customerId) {
         return customerRepository.findById(customerId).orElseThrow(() -> new NotFoundException("Customer doesn't exist"));
+    }
+
+    private Optional<CustomerEntity> findUnregisteredCustomerById(UUID customerId) {
+        return customerRepository.findUnregisteredById(customerId);
     }
 
     private CustomerEntity saveCustomer(CustomerRegistrationDto registrationDto) {

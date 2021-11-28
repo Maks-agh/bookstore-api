@@ -1,6 +1,7 @@
 package com.bookstore.domain.order;
 
 import com.bookstore.boundary.controller.order.OrderRepository;
+import com.bookstore.domain.customer.CustomerService;
 import com.bookstore.domain.exception.NotFoundException;
 import com.bookstore.domain.order.dto.CreateOrderDto;
 import com.bookstore.domain.order.dto.OrderDetailDto;
@@ -33,15 +34,20 @@ public class OrderService {
 
     private final ProductService productService;
 
+    private final CustomerService customerService;
+
     private final MeterRegistry meterRegistry;
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void createOrder(CreateOrderDto orderDto) {
         log.info("Creating order {} started", orderDto);
-        OrderEntity orderEntity = new OrderEntity(orderDto.getCustomerId());
+        OrderEntity orderEntity = new OrderEntity(orderDto.getCustomer().getId());
         List<OrderDetailsEntity> orderDetails = createOrderDetails(orderDto, orderEntity);
         orderEntity.setOrderDetails(orderDetails);
         orderRepository.save(orderEntity);
+        if (!orderDto.getCustomer().isAuthenticated()) {
+            customerService.createUnregisteredForOrder(orderDto.getCustomer());
+        }
         recordOrderCreation(orderDetails.stream().mapToDouble(OrderDetailsEntity::getPrice).sum());
         log.info("Creating order {} finished", orderEntity.getId());
     }
@@ -58,6 +64,16 @@ public class OrderService {
         log.info("Fetching orders list for customer {} started", customerId);
         List<OrderEntity> orders = orderRepository.findByCreatedBy(customerId);
         log.info("Fetching orders list for customer {} finished", customerId);
+        return mapToList(orders, this::buildOrderDto);
+    }
+
+    public List<OrderDto> getUnregisteredOrdersList(UUID customerId) {
+        log.info("Fetching orders list for unregistered customer {} started", customerId);
+        if (customerService.unregisteredCustomerExists(customerId)) {
+            throw new NotFoundException("Unregistered customer doesn't exist");
+        }
+        List<OrderEntity> orders = orderRepository.findByCreatedBy(customerId);
+        log.info("Fetching orders list for unregistered customer {} finished", customerId);
         return mapToList(orders, this::buildOrderDto);
     }
 

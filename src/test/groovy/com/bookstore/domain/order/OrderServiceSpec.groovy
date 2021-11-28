@@ -1,6 +1,7 @@
 package com.bookstore.domain.order
 
 import com.bookstore.boundary.controller.order.OrderRepository
+import com.bookstore.domain.customer.CustomerService
 import com.bookstore.domain.order.dto.CreateOrderDto
 import com.bookstore.domain.order.dto.CreateOrderProductDto
 import com.bookstore.domain.order.dto.UpdateOrderStatusDto
@@ -14,15 +15,17 @@ class OrderServiceSpec extends Specification {
 
     OrderRepository orderRepository = Mock(OrderRepository)
     ProductService productService = Mock(ProductService)
+    CustomerService customerService = Mock(CustomerService)
     MeterRegistry meterRegistry = new SimpleMeterRegistry()
 
-    OrderService orderService = new OrderService(orderRepository, productService, meterRegistry)
+    OrderService orderService = new OrderService(orderRepository, productService, customerService, meterRegistry)
 
     def "should create order"() {
         given:
             def customerId = UUID.randomUUID()
             def productId = UUID.randomUUID()
-            def createOrderDto = new CreateOrderDto([new CreateOrderProductDto(productId, 1)], customerId)
+            def customer = new CreateOrderDto.CustomerDto(customerId, true, null, null, null, null)
+            def createOrderDto = new CreateOrderDto([new CreateOrderProductDto(productId, 1)], customer)
         when:
             orderService.createOrder(createOrderDto)
         then:

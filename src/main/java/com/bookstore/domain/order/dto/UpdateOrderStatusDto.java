@@ -1,7 +1,6 @@
 package com.bookstore.domain.order.dto;
 
 import com.bookstore.domain.order.OrderStatus;
-
 import java.util.UUID;
 
 import lombok.Getter;
