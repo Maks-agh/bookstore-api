@@ -23,3 +23,14 @@ services:
       - POSTGRES_DB=bookstore
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+  bookstore-prometheus:
+    image: prom/prometheus:v2.21.0
+    container_name: 'bookstore-prometheus'
+    restart: always
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.enable-admin-api'
+    ports:
+      - '9092:9090'
