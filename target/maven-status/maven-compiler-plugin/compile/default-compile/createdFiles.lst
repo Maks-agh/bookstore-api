@@ -4,6 +4,7 @@ com/bookstore/domain/password/PasswordService.class
 com/bookstore/domain/order/OrderStatus.class
 com/bookstore/domain/customer/dto/AuthorizationDto.class
 com/bookstore/domain/order/OrderDetailsEntity.class
+com/bookstore/domain/order/dto/CreateOrderDto$CustomerDto$CustomerDtoBuilder.class
 com/bookstore/domain/product/ProductRepository.class
 com/bookstore/boundary/controller/order/UpdateOrderStatusDocument.class
 com/bookstore/domain/product/dto/UpdateProductDto.class
@@ -17,6 +18,7 @@ com/bookstore/boundary/controller/customer/UpdateCustomerDetailsDocument.class
 com/bookstore/domain/order/OrderService.class
 com/bookstore/domain/customer/dto/CustomerLoginDto.class
 com/bookstore/domain/order/dto/OrderDetailDto.class
+com/bookstore/boundary/controller/order/CreateOrderDocument$CustomerDocument.class
 com/bookstore/domain/auth/CustomerAuthority.class
 com/bookstore/infrastructure/security/SecurityConfig.class
 com/bookstore/infrastructure/security/ApiHttpSecurityConfigurer.class
@@ -42,6 +44,7 @@ com/bookstore/boundary/controller/customer/CustomersController.class
 com/bookstore/domain/customer/dto/UpdateCustomerDetailsDto.class
 com/bookstore/boundary/controller/order/CreateOrderProductDocument.class
 com/bookstore/domain/order/dto/UpdateOrderStatusDto.class
+com/bookstore/domain/order/dto/CreateOrderDto$CustomerDto.class
 com/bookstore/infrastructure/postgres/customer/CustomerPostgresRepository.class
 com/bookstore/boundary/controller/order/OrdersListDocument.class
 com/bookstore/boundary/controller/customer/CustomerResourceFactory.class

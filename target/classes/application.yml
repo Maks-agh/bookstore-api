@@ -14,7 +14,7 @@ spring:
     show-sql: false
     open-in-view: false
 server:
-  port: 8081
+  port: 8080
   error:
     include-message: always
 logging:
@@ -30,3 +30,5 @@ management:
     web:
       exposure:
         include: metrics,info,health,prometheus
+elasticsearch:
+  url: ${ELASTICSEARCH_URL:http://localhost:9200}

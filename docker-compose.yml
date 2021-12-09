@@ -23,6 +23,7 @@ services:
       - POSTGRES_DB=bookstore
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
   bookstore-prometheus:
     image: prom/prometheus:v2.21.0
     container_name: 'bookstore-prometheus'
@@ -34,3 +35,18 @@ services:
       - '--web.enable-admin-api'
     ports:
       - '9092:9090'
+  elasticsearch:
+    image: elasticsearch:7.14.2
+    container_name: 'elasticsearch'
+    restart: always
+    environment:
+      - discovery.type=single-node
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+  kibana:
+    image: kibana:7.14.2
+    container_name: 'kibana'
+    restart: always
+    ports:
+      - '5601:5601'
