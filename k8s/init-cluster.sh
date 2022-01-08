@@ -1,5 +1,5 @@
 kind create cluster --config=kind-config.yml;
-kind load docker-image postgres;
+kind load docker-image postgres:14.1;
 kind load docker-image bookstore-api;
 kind load docker-image prom/prometheus:v2.21.0;
 kind load docker-image elasticsearch:7.14.2;

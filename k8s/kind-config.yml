@@ -11,3 +11,7 @@ nodes:
         hostPort: 5601
       - containerPort: 30953
         hostPort: 9200
+      - containerPort: 31000
+        hostPort: 3000
+      - containerPort: 32000
+        hostPort: 8002

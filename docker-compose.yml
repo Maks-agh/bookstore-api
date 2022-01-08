@@ -13,7 +13,7 @@ services:
     links:
       - postgres:postgres.service
   postgres:
-    image: postgres:latest
+    image: postgres:14.1
     container_name: postgres
     ports:
       - 5432:5432
