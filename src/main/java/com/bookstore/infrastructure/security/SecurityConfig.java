@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     private static final String[] GUEST_URLS = {
-            "/products/**"
+            "/products/**",
+            "/reports/**"
     };
 
     private static final String USER_REGISTRATION_URL = "/customers/registration";

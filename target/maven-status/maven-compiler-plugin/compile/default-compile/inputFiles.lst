@@ -13,7 +13,6 @@
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/boundary/controller/customer/CustomerLoginDocument.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/boundary/controller/customer/UpdateCustomerDetailsDocument.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/infrastructure/security/JwtAuthorizationFilter.java
-/Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/boundary/controller/order/OrderRepository.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/domain/order/dto/OrderDto.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/domain/product/ProductService.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/domain/order/OrderEntity.java
@@ -44,6 +43,7 @@
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/domain/order/OrderDetailsId.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/boundary/controller/order/OrdersController.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/domain/customer/dto/AddressDto.java
+/Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/domain/order/OrderRepository.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/domain/product/ProductEntity.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/domain/customer/dto/CustomerDto.java
 /Users/maks/Projects/my-own-projects/bookstore-api/src/main/java/com/bookstore/boundary/controller/order/OrderDocument.java

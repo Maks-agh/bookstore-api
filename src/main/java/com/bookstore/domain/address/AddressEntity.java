@@ -12,11 +12,13 @@ import java.util.UUID;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @Entity
 @Table(name = "addresses")
 @NoArgsConstructor
+@ToString(exclude = {"id", "customer"})
 public class AddressEntity {
 
     @Id

@@ -16,6 +16,7 @@ com/bookstore/boundary/controller/product/UpdateProductDocument.class
 com/bookstore/infrastructure/postgres/product/ProductPostgresRepository.class
 com/bookstore/boundary/controller/customer/UpdateCustomerDetailsDocument.class
 com/bookstore/domain/order/OrderService.class
+com/bookstore/domain/order/OrderRepository.class
 com/bookstore/domain/customer/dto/CustomerLoginDto.class
 com/bookstore/domain/order/dto/OrderDetailDto.class
 com/bookstore/boundary/controller/order/CreateOrderDocument$CustomerDocument.class
@@ -56,7 +57,6 @@ com/bookstore/domain/exception/AuthorizationException.class
 com/bookstore/boundary/controller/customer/AuthorizationDocument.class
 com/bookstore/boundary/controller/order/OrderDocument.class
 com/bookstore/boundary/controller/product/ProductResourceFactory.class
-com/bookstore/boundary/controller/order/OrderRepository.class
 com/bookstore/domain/product/dto/CreateProductDto.class
 com/bookstore/boundary/controller/customer/CustomerRegistrationDocument.class
 com/bookstore/boundary/controller/order/OrdersController.class
