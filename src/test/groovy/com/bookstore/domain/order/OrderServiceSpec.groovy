@@ -1,6 +1,6 @@
 package com.bookstore.domain.order
 
-import com.bookstore.boundary.controller.order.OrderRepository
+
 import com.bookstore.domain.customer.CustomerService
 import com.bookstore.domain.order.dto.CreateOrderDto
 import com.bookstore.domain.order.dto.CreateOrderProductDto

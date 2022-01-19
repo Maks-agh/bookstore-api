@@ -1,6 +1,5 @@
-package com.bookstore.boundary.controller.order;
+package com.bookstore.domain.order;
 
-import com.bookstore.domain.order.OrderEntity;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

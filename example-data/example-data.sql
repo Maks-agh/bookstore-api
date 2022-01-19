@@ -1,0 +1,17 @@
+INSERT INTO addresses VALUES ('1977b7f1-e4b6-4f18-9670-7b3bf3a8b058', 'ul. Testowa 15', '', 'Cracow', '00-000');
+INSERT INTO addresses VALUES ('7edcbc41-f4c5-4c9b-acd5-8419c311ca70', 'ul. Inna 49', '', 'Cracow', '00-000');
+INSERT INTO customers VALUES ('ffee533a-815f-4a32-ae50-a3a4ff88d3c2', 'Jan Testowy', 'jan@example.com', '123456789', 'pass', '1977b7f1-e4b6-4f18-9670-7b3bf3a8b058');
+INSERT INTO customers VALUES ('c0d7438a-49cd-46f7-ba20-3262290dd575', 'Tomasz Inny', 'tomasz@example.com', '987654321', 'pass', '7edcbc41-f4c5-4c9b-acd5-8419c311ca70');
+INSERT INTO products VALUES ('bbe65e11-3217-4b36-8e10-03cdeb226cfa', 'Pisak', '', 100, 2.0);
+INSERT INTO products VALUES ('6339515d-3e94-4ff7-ad9b-4f373a296549', 'Flamaster', '', 50, 5.0);
+INSERT INTO products VALUES ('564a374c-b306-4120-9f88-4f50db03c9b1', 'Plecak', '', 30, 25.0);
+INSERT INTO orders VALUES ('5351ce5f-1643-42c4-9401-cdfb7dbb2038', 'ffee533a-815f-4a32-ae50-a3a4ff88d3c2', '2016-06-22 19:10:25-07', null, null, 'RECEIVED');
+INSERT INTO orders VALUES ('455df767-0a54-4702-9a11-af6e3fb5debb', 'ffee533a-815f-4a32-ae50-a3a4ff88d3c2', '2016-06-22 20:20:25-07', '2016-06-22 20:40:25-07', null, 'PACKED');
+INSERT INTO orders VALUES ('36e6c5f1-4100-4712-b45e-dff5c6ef7d07', 'ffee533a-815f-4a32-ae50-a3a4ff88d3c2', '2016-06-22 21:10:25-07', '2016-06-22 21:30:25-07', '2016-06-22 22:20:25-07', 'SENT');
+INSERT INTO orders VALUES ('8a420f1d-f822-4016-92b3-087a6c3c78c7', 'c0d7438a-49cd-46f7-ba20-3262290dd575', '2016-06-22 10:10:25-07', '2016-06-22 16:05:25-07', '2016-06-22 20:00:25-07', 'SENT');
+INSERT INTO order_details VALUES ('5351ce5f-1643-42c4-9401-cdfb7dbb2038', 'bbe65e11-3217-4b36-8e10-03cdeb226cfa', 5, 10.0);
+INSERT INTO order_details VALUES ('5351ce5f-1643-42c4-9401-cdfb7dbb2038', '564a374c-b306-4120-9f88-4f50db03c9b1', 1, 25.0);
+INSERT INTO order_details VALUES ('455df767-0a54-4702-9a11-af6e3fb5debb', 'bbe65e11-3217-4b36-8e10-03cdeb226cfa', 2, 50.0);
+INSERT INTO order_details VALUES ('36e6c5f1-4100-4712-b45e-dff5c6ef7d07', '6339515d-3e94-4ff7-ad9b-4f373a296549', 5, 25.0);
+INSERT INTO order_details VALUES ('8a420f1d-f822-4016-92b3-087a6c3c78c7', '6339515d-3e94-4ff7-ad9b-4f373a296549', 5, 25.0);
+INSERT INTO order_details VALUES ('8a420f1d-f822-4016-92b3-087a6c3c78c7', 'bbe65e11-3217-4b36-8e10-03cdeb226cfa', 2, 50.0);

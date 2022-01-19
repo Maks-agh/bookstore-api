@@ -1,6 +1,6 @@
 package com.bookstore.infrastructure.postgres.order;
 
-import com.bookstore.boundary.controller.order.OrderRepository;
+import com.bookstore.domain.order.OrderRepository;
 import com.bookstore.domain.order.OrderEntity;
 import java.util.List;
 import java.util.Optional;

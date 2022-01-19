@@ -1,6 +1,5 @@
 package com.bookstore.domain.order;
 
-import com.bookstore.boundary.controller.order.OrderRepository;
 import com.bookstore.domain.customer.CustomerService;
 import com.bookstore.domain.exception.NotFoundException;
 import com.bookstore.domain.order.dto.CreateOrderDto;
