@@ -73,12 +73,12 @@ public class CustomerService {
     }
 
     public void updateDetails(UpdateCustomerDetailsDto updateDto) {
-        log.info("Update'ing customer details {} started", updateDto);
+        log.info("Updating customer details {} started", updateDto);
         CustomerEntity customer = findCustomerById(updateDto.getCustomerId());
         customer.updateCustomer(updateDto);
 
         customerRepository.save(customer);
-        log.info("Update'ing customer details {} finished", customer.getId());
+        log.info("Updating customer details {} finished", customer.getId());
     }
 
     public void createUnregisteredForOrder(CreateOrderDto.CustomerDto customerDto) {
@@ -99,15 +99,19 @@ public class CustomerService {
     }
 
     private void validateRegistration(CustomerRegistrationDto registrationDto) {
+        log.info("Validating customer registration started");
         if (!registrationDto.getPassword().equals(registrationDto.getRepeatPassword())) {
             throw new ValidationException("Passwords are not the same");
         }
+        log.info("Validating customer registration finished successfully");
     }
 
     private void validateLogin(CustomerEntity customerEntity, CustomerLoginDto loginDto) {
+        log.info("Validating customer login started");
         if (!passwordService.isPasswordMatching(loginDto.getPassword(), customerEntity.getPassword())) {
             throw new AuthorizationException("Customer provided incorrect password");
         }
+        log.info("Validating customer login finished successfully");
     }
 
     private CustomerEntity findCustomer(CustomerLoginDto loginDto) {

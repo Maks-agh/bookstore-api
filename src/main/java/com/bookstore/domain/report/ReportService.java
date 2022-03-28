@@ -15,8 +15,10 @@ public class ReportService {
     private final ReportRepository reportRepository;
 
     public void printReport() {
+        log.info("Generating report started");
         List<ReportProjection> reportData = reportRepository.buildReport();
         reportData.forEach(System.out::println);
+        log.info("Generating report finished");
     }
 
 }

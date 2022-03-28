@@ -42,11 +42,11 @@ public class ProductService {
     }
 
     public void updateProduct(UpdateProductDto productDto) {
-        log.info("Update'ing product {} started", productDto);
+        log.info("Updating product {} started", productDto);
         ProductEntity productEntity = findProductById(productDto.getProductId());
         productEntity.updateEntity(productDto);
         productRepository.save(productEntity);
-        log.info("Update'ing product {} finished", productDto.getProductId());
+        log.info("Updating product {} finished", productDto.getProductId());
     }
 
     public ProductEntity findByIdAndInStockGreaterThanEqual(UUID productId, Integer inStock) {
